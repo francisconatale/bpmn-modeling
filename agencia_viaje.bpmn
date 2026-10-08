@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:zeebe="http://camunda.org/schema/zeebe/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1e8hkkj" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="5.52.0" modeler:executionPlatform="Camunda Cloud" modeler:executionPlatformVersion="8.10.0">
+  <bpmn:process id="Process_0bmjnda" isExecutable="true">
+    <bpmn:startEvent id="Event_1imfsmz" name="recibir solicitud">
+      <bpmn:outgoing>Flow_1un6dn2</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_12jz18y" />
+    </bpmn:startEvent>
+    <bpmn:transaction id="Activity_0vwk48q">
+      <bpmn:incoming>Flow_1un6dn2</bpmn:incoming>
+      <bpmn:startEvent id="Event_0uacy68">
+        <bpmn:outgoing>Flow_0dsm6jw</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:parallelGateway id="Gateway_0tvopa0">
+        <bpmn:incoming>Flow_0dsm6jw</bpmn:incoming>
+        <bpmn:outgoing>Flow_0euhv94</bpmn:outgoing>
+        <bpmn:outgoing>Flow_0rh0fiw</bpmn:outgoing>
+        <bpmn:outgoing>Flow_0so5qxm</bpmn:outgoing>
+      </bpmn:parallelGateway>
+      <bpmn:sequenceFlow id="Flow_0dsm6jw" sourceRef="Event_0uacy68" targetRef="Gateway_0tvopa0" />
+      <bpmn:userTask id="Activity_1m8lhfk" name="Reservar vuelo">
+        <bpmn:extensionElements>
+          <zeebe:userTask />
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0euhv94</bpmn:incoming>
+      </bpmn:userTask>
+      <bpmn:sequenceFlow id="Flow_0euhv94" sourceRef="Gateway_0tvopa0" targetRef="Activity_1m8lhfk" />
+      <bpmn:userTask id="Activity_1i0bukz" name="Reservar alojamiento">
+        <bpmn:extensionElements>
+          <zeebe:userTask />
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0rh0fiw</bpmn:incoming>
+      </bpmn:userTask>
+      <bpmn:sequenceFlow id="Flow_0rh0fiw" sourceRef="Gateway_0tvopa0" targetRef="Activity_1i0bukz" />
+      <bpmn:userTask id="Activity_0z1ynpz" name="Reservar hotel">
+        <bpmn:extensionElements>
+          <zeebe:userTask />
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0so5qxm</bpmn:incoming>
+      </bpmn:userTask>
+      <bpmn:sequenceFlow id="Flow_0so5qxm" sourceRef="Gateway_0tvopa0" targetRef="Activity_0z1ynpz" />
+      <bpmn:boundaryEvent id="Event_1b0c3fh" attachedToRef="Activity_0z1ynpz">
+        <bpmn:compensateEventDefinition id="CompensateEventDefinition_0zt6rhr" />
+      </bpmn:boundaryEvent>
+    </bpmn:transaction>
+    <bpmn:sequenceFlow id="Flow_1un6dn2" sourceRef="Event_1imfsmz" targetRef="Activity_0vwk48q" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Process_0bmjnda">
+      <bpmndi:BPMNShape id="Event_1imfsmz_di" bpmnElement="Event_1imfsmz">
+        <dc:Bounds x="152" y="382" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="134" y="425" width="73" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0vwk48q_di" bpmnElement="Activity_0vwk48q" isExpanded="true">
+        <dc:Bounds x="360" y="80" width="860" height="660" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0uacy68_di" bpmnElement="Event_0uacy68">
+        <dc:Bounds x="412" y="382" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0tvopa0_di" bpmnElement="Gateway_0tvopa0">
+        <dc:Bounds x="505" y="375" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1m8lhfk_di" bpmnElement="Activity_1m8lhfk">
+        <dc:Bounds x="620" y="180" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1i0bukz_di" bpmnElement="Activity_1i0bukz">
+        <dc:Bounds x="640" y="360" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0z1ynpz_di" bpmnElement="Activity_0z1ynpz">
+        <dc:Bounds x="640" y="530" width="100" height="80" />
+        <bpmndi:BPMNLabel />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1b0c3fh_di" bpmnElement="Event_1b0c3fh">
+        <dc:Bounds x="692" y="592" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0dsm6jw_di" bpmnElement="Flow_0dsm6jw">
+        <di:waypoint x="448" y="400" />
+        <di:waypoint x="505" y="400" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0euhv94_di" bpmnElement="Flow_0euhv94">
+        <di:waypoint x="530" y="375" />
+        <di:waypoint x="530" y="220" />
+        <di:waypoint x="620" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0rh0fiw_di" bpmnElement="Flow_0rh0fiw">
+        <di:waypoint x="555" y="400" />
+        <di:waypoint x="640" y="400" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0so5qxm_di" bpmnElement="Flow_0so5qxm">
+        <di:waypoint x="530" y="425" />
+        <di:waypoint x="530" y="570" />
+        <di:waypoint x="640" y="570" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1un6dn2_di" bpmnElement="Flow_1un6dn2">
+        <di:waypoint x="188" y="400" />
+        <di:waypoint x="360" y="400" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
